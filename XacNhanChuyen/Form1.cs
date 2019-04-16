@@ -42,7 +42,8 @@ namespace XacNhanChuyen
             DateTime dt = dateTimePicker1.Value;
             string day = dt.Date.Ticks.ToString();
 
-            string[] dstuyen = {"http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate="+day,
+            string[] dstuyen = {
+                                "http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
@@ -70,7 +71,8 @@ namespace XacNhanChuyen
                                 "http://dnvt.ebms.vn/EarningYield/Trip/15?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/18?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/178?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/179?SrvDate="+day};
+                                "http://dnvt.ebms.vn/EarningYield/Trip/179?SrvDate="+day
+                                };
 
 
             foreach (string url in dstuyen)
@@ -97,7 +99,7 @@ namespace XacNhanChuyen
             {
                 try
                 {
-                    if (element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã xác nhận chuyến")
+                    if (element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã xác nhận chuyến"|| element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã từ chối chuyến")
                         continue;
                     string gioXuatBen = element.FindElement(By.CssSelector("td:nth-child(8)")).Text;
                     string soXe = element.FindElement(By.CssSelector("td:nth-child(11)")).Text;
@@ -144,7 +146,7 @@ namespace XacNhanChuyen
         
         private string xacNhanChuyen(int phutXuatBen, int PhutVeBen, string ghiChu, IWebElement checkBox)
         {
-            string[] suCo = {"hu","hư","thay","be","bể","va quẹt", "va quet", "tai nan", "tai nạn"};
+            string[] suCo = {"hu","hư","thay","be","bể","va quẹt", "va quet", "tai nan", "tai nạn", "tt", "trung tâm", "trung tam"};
             string ms = "";
             int flag=0;
             foreach (string s in suCo)
