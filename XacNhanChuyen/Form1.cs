@@ -146,7 +146,7 @@ namespace XacNhanChuyen
         
         private string xacNhanChuyen(int phutXuatBen, int PhutVeBen, string ghiChu, IWebElement checkBox)
         {
-            string[] suCo = {"hu","hư","thay","be","bể","va quẹt", "va quet", "tai nan", "tai nạn", "tt", "trung tâm", "trung tam"};
+            string[] suCo = { "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "tt", "trung tâm", "trung tam" };
             string ms = "";
             int flag=0;
             foreach (string s in suCo)
