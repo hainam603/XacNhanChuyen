@@ -18,9 +18,7 @@ namespace XacNhanChuyen
         {
             InitializeComponent();
         }
-        
-        
-        void dangNhap(string userName, string passWord, IWebDriver driver)
+        private void dangNhap(string userName, string passWord, IWebDriver driver)
         {
             IWebElement user = driver.FindElement(By.Id("username"));
             IWebElement pass = driver.FindElement(By.Id("password"));
@@ -28,70 +26,47 @@ namespace XacNhanChuyen
             pass.SendKeys(passWord);
             pass.Submit();
         }
-        private void button1_Click(object sender, EventArgs e)
+        private string[] dsTuyenTheoNgay(DateTimePicker dtpk)
         {
-
-            ChromeOptions chromeOptions = new ChromeOptions();
-            //chromeOptions.AddArguments("--start-minimized");
-            chromeOptions.AddArguments("--start-maximized");
-            IWebDriver driver = new ChromeDriver(chromeOptions);
-            driver.Url = "http://ebms.vn/";
-            dangNhap(textBox1.Text, textBox2.Text, driver);
-            /////////////////////////////////////////////////
-
-            DateTime dt = dateTimePicker1.Value;
+            DateTime dt = dtpk.Value;
             string day = dt.Date.Ticks.ToString();
-
             string[] dstuyen = {
-                                "http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/43?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/48?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/52?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/55?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/59?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/64?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/70?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/73?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/76?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/77?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/78?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/43?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/48?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/52?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/55?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/59?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/64?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/70?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/73?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/76?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/77?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/78?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/79?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/106?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/112?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/113?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/116?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/119?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/127?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/129?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/130?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/11?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/15?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/18?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/178?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/179?SrvDate="+day
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/106?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/112?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/113?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/116?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/119?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/127?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/129?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/130?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/11?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/15?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/18?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/178?SrvDate="+day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/179?SrvDate="+day
                                 };
-
-
-            foreach (string url in dstuyen)
-            {
-                thucHienXacNhanChuyenTheoDS(url, driver);
-               
-            }
-            driver.Quit();
-
-
-            
+            return dstuyen;
         }
-
         private void thucHienXacNhanChuyenTheoDS(string url, IWebDriver driver)
         {
             
             driver.Url = url;
-
-
             int j = 0;
             IList<IWebElement> all = driver.FindElements(By.CssSelector("#tableContainer > tbody tr"));
       
@@ -101,6 +76,7 @@ namespace XacNhanChuyen
                 {
                     if (element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã xác nhận chuyến"|| element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã từ chối chuyến")
                         continue;
+                    string sTT = element.FindElement(By.CssSelector("td:nth-child(4)")).Text;
                     string gioXuatBen = element.FindElement(By.CssSelector("td:nth-child(8)")).Text;
                     string soXe = element.FindElement(By.CssSelector("td:nth-child(11)")).Text;
                     string phutXuatBen = element.FindElement(By.CssSelector("td:nth-child(14)")).Text;
@@ -108,12 +84,33 @@ namespace XacNhanChuyen
                     string ghiChu = element.FindElement(By.CssSelector("td:nth-child(19)")).GetAttribute("title");
                     string dauBen = element.FindElement(By.CssSelector("td:nth-child(8)")).Text;
                     IWebElement check = element.FindElement(By.CssSelector("td:nth-child(1)"));
+                    IWebElement tuChoi = element.FindElement(By.CssSelector("td:nth-child(2)"));
+                    if (phutVeBen != "" && phutXuatBen != "")
+                    {
+                        string ms = xacNhanChuyen(Int32.Parse(getphut(phutXuatBen)), Int32.Parse(getphut(phutVeBen)), ghiChu, check, tuChoi);
+                    }
+                    else
+                    {
+                        string[] matChuyen = {"mat chuyen", "mất chuyến" };
+                        foreach (string s in matChuyen)
+                        {
+                            if (ghiChu.Contains(s))
+                            {
+                                tuChoi.Click();
+                                //CheckPageIsLoaded(driver);
+                                driver.FindElement(By.CssSelector("#btnPopupConfirm_CD")).Click();
+                                //CheckPageIsLoaded(driver);
+                                break;
+                            }
+                        }
 
-                    string ms=xacNhanChuyen(Int32.Parse(getphut(phutXuatBen)), Int32.Parse(getphut(phutVeBen)), ghiChu, check);
+                    }
                     j++;
 
                 }
-                catch (Exception ex){}
+                catch (Exception ex){
+                    MessageBox.Show(ex.ToString());
+                }
             }
 
             //Click xác nhận chuyến
@@ -126,8 +123,6 @@ namespace XacNhanChuyen
             
             
         }
-        
-
         private void Form1_Load(object sender, EventArgs e)
         {
             textBox1.Text = "xnchuyen3";
@@ -136,15 +131,13 @@ namespace XacNhanChuyen
         private string getphut(string sophut)
         {
             if (sophut.Contains("("))
-                sophut = "-"+ sophut.Substring(1, 2);
+                sophut = "-" + sophut.Substring(1, 2);
             else
                 sophut = sophut.Substring(0, 2);
 
             return sophut;
-        }
-
-        
-        private string xacNhanChuyen(int phutXuatBen, int PhutVeBen, string ghiChu, IWebElement checkBox)
+      }
+        private string xacNhanChuyen(int phutXuatBen, int PhutVeBen, string ghiChu, IWebElement checkBox, IWebElement tuChoi)
         {
             string[] suCo = { "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "tt", "trung tâm", "trung tam" };
             string ms = "";
@@ -153,12 +146,15 @@ namespace XacNhanChuyen
             {
                 if (ghiChu.Contains(s))
                 {
+                    tuChoi.Click();
                     flag = 1;
                     break;
                 }
             }
-            if(flag==1)
+            if (flag == 1)
+            {
                 ms = "Không đủ điều kiện xác nhận";
+            }
             else
             {
                 if (phutXuatBen >= 10)
@@ -196,50 +192,54 @@ namespace XacNhanChuyen
             return ms;
             
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void dsCacChuyenChuaXacNhan(string url, IWebDriver driver)
         {
-            DateTime dt = dateTimePicker1.Value;
-            string day = dt.Date.Ticks.ToString();
-
-            string[] dstuyen = {"http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/43?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/48?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/52?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/55?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/59?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/64?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/70?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/73?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/76?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/77?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/78?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/79?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/106?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/112?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/113?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/116?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/119?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/127?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/129?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/130?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/11?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/15?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/18?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/178?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/179?SrvDate="+day};
-            foreach (string url in dstuyen)
+            driver.Url = url;
+            driver.FindElement(By.CssSelector("#optTrip_RB2_I_D")).Click();
+            driver.FindElement(By.CssSelector("#btnFilter_CD")).Click();
+        }
+        private void moTabMoi(IWebDriver driver)
+        {
+            driver.FindElement(By.CssSelector("body")).SendKeys(OpenQA.Selenium.Keys.Control + 'w');
+        }
+        private void CheckPageIsLoaded(IWebDriver driver)
+        {
+            while (true)
             {
-
-                System.Diagnostics.Process.Start(url);
-               
+                bool ajaxIsComplete = (bool)(driver as IJavaScriptExecutor).ExecuteScript("return jQuery.active == 0");
+                if (ajaxIsComplete)
+                    return;
+                Thread.Sleep(100);
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            //chromeOptions.AddArguments("--start-minimized");
+            chromeOptions.AddArguments("--start-maximized");
+            IWebDriver driver = new ChromeDriver(chromeOptions);
+            driver.Url = "http://ebms.vn/";
+            dangNhap(textBox1.Text, textBox2.Text, driver);
+            foreach (string url in dsTuyenTheoNgay(dateTimePicker1))
+            {
+                thucHienXacNhanChuyenTheoDS(url, driver);
 
             }
+            //foreach (string url in dsTuyenTheoNgay(dateTimePicker1))
+            //{
+            //    dsCacChuyenChuaXacNhan(url, driver);
+            //    moTabMoi(driver);
+            //}
 
-            
+            //driver.Quit();
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+   
+            foreach (string url in dsTuyenTheoNgay(dateTimePicker1))
+            {
+                System.Diagnostics.Process.Start(url);
+            }
         }
     }
 }
