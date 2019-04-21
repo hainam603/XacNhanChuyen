@@ -31,35 +31,35 @@ namespace XacNhanChuyen
             DateTime dt = dtpk.Value;
             string day = dt.Date.Ticks.ToString();
             string[] dstuyen = {
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/43?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/48?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/52?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/55?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/59?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/64?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/70?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/73?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/76?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/77?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/78?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/43?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/48?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/52?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/55?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/59?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/64?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/70?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/73?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/76?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/77?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/78?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/79?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/106?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/112?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/113?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/116?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/119?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/127?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/129?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/130?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/11?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/15?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/18?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/178?SrvDate="+day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/179?SrvDate="+day
+                                "http://dnvt.ebms.vn/EarningYield/Trip/106?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/112?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/113?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/116?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/119?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/127?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/129?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/130?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/11?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/15?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/18?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/178?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/179?SrvDate="+day
                                 };
             return dstuyen;
         }
@@ -91,7 +91,7 @@ namespace XacNhanChuyen
                     }
                     else
                     {
-                        string[] matChuyen = {"mat chuyen", "mất chuyến" };
+                        string[] matChuyen = { "mat chuyen", "mất chuyến", "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn" };
                         foreach (string s in matChuyen)
                         {
                             if (ghiChu.Contains(s))
@@ -231,7 +231,7 @@ namespace XacNhanChuyen
             //    moTabMoi(driver);
             //}
 
-            //driver.Quit();
+            driver.Quit();
         }
         private void button2_Click(object sender, EventArgs e)
         {
