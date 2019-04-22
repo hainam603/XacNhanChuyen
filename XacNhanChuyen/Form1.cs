@@ -91,15 +91,16 @@ namespace XacNhanChuyen
                     }
                     else
                     {
-                        string[] matChuyen = { "mat chuyen", "mất chuyến", "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn" };
+                        string[] matChuyen = { "mat chuyen", "mất chuyến", "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "dut day", "đứt dây" };
                         foreach (string s in matChuyen)
                         {
                             if (ghiChu.Contains(s))
                             {
                                 tuChoi.Click();
-                                //CheckPageIsLoaded(driver);
-                                driver.FindElement(By.CssSelector("#btnPopupConfirm_CD")).Click();
-                                //CheckPageIsLoaded(driver);
+                                CheckPageIsLoaded(driver);
+                                try {driver.FindElement(By.CssSelector("#btnPopupConfirm_CD")).Click();}catch(Exception ex){}
+                                //#btnPopupConfirm_CD
+                                CheckPageIsLoaded(driver);
                                 break;
                             }
                         }
@@ -109,7 +110,7 @@ namespace XacNhanChuyen
 
                 }
                 catch (Exception ex){
-                    MessageBox.Show(ex.ToString());
+                    //MessageBox.Show(ex.ToString());
                 }
             }
 
