@@ -31,7 +31,7 @@ namespace XacNhanChuyen
             DateTime dt = dtpk.Value;
             string day = dt.Date.Ticks.ToString();
             string[] dstuyen = {
-                                "http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
@@ -91,7 +91,8 @@ namespace XacNhanChuyen
                     }
                     else
                     {
-                        string[] matChuyen = { "mat chuyen", "mất chuyến", "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "dut day", "đứt dây" };
+
+                        string[] matChuyen = { "mât chuyến", "Mat chuyen", "Mất chuyến", "mat chuyen", "mất chuyến", "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "dut day", "đứt dây" };
                         foreach (string s in matChuyen)
                         {
                             if (ghiChu.Contains(s))
