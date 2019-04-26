@@ -26,12 +26,16 @@ namespace XacNhanChuyen
             pass.SendKeys(passWord);
             pass.Submit();
         }
+        string[] suCo = { "không về bến", "khong ve ben", "không vê bến", "không về bến", "không hoạt động", "khong hoat dong",
+            " không hoat động", "không hoạt đông", "mât chuyến", "mat chuyen", "mất chuyến", "mc",
+            "Xe hu", "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "dut day",
+            "đứt dây" };
         private string[] dsTuyenTheoNgay(DateTimePicker dtpk)
         {
             DateTime dt = dtpk.Value;
             string day = dt.Date.Ticks.ToString();
             string[] dstuyen = {
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
@@ -63,51 +67,93 @@ namespace XacNhanChuyen
                                 };
             return dstuyen;
         }
+        private bool kiemTraChuyenRong(IWebElement element)
+        {
+            bool rs;
+            if (element.FindElement(By.CssSelector("td:nth-child(11)")).Text == ""
+                && element.FindElement(By.CssSelector("td:nth-child(12)")).Text == ""
+                && element.FindElement(By.CssSelector("td:nth-child(13)")).Text == ""
+                && element.FindElement(By.CssSelector("td:nth-child(14)")).Text == ""
+                && element.FindElement(By.CssSelector("td:nth-child(15)")).Text == ""
+                && element.FindElement(By.CssSelector("td:nth-child(19)")).Text == "")
+                rs = true;
+            else
+                rs = false;
+            
+            return rs;
+        }
         private void thucHienXacNhanChuyenTheoDS(string url, IWebDriver driver)
         {
             
             driver.Url = url;
+
+
+            driver.FindElement(By.CssSelector("#optTrip_RB2_I_D")).Click();
+            driver.FindElement(By.CssSelector("#btnFilter")).Click();
+            CheckPageIsLoaded(driver);
+
             int j = 0;
+            int i = 0;
             IList<IWebElement> all = driver.FindElements(By.CssSelector("#tableContainer > tbody tr"));
       
             foreach (IWebElement element in all)
             {
+                if (i == 5)
+                    break;
                 try
                 {
-                    if (element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã xác nhận chuyến"|| element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã từ chối chuyến")
-                        continue;
-                    string sTT = element.FindElement(By.CssSelector("td:nth-child(4)")).Text;
-                    string gioXuatBen = element.FindElement(By.CssSelector("td:nth-child(8)")).Text;
-                    string soXe = element.FindElement(By.CssSelector("td:nth-child(11)")).Text;
-                    string phutXuatBen = element.FindElement(By.CssSelector("td:nth-child(14)")).Text;
-                    string phutVeBen = element.FindElement(By.CssSelector("td:nth-child(15)")).Text;
-                    string ghiChu = element.FindElement(By.CssSelector("td:nth-child(19)")).GetAttribute("title");
-                    string dauBen = element.FindElement(By.CssSelector("td:nth-child(8)")).Text;
-                    IWebElement check = element.FindElement(By.CssSelector("td:nth-child(1)"));
-                    IWebElement tuChoi = element.FindElement(By.CssSelector("td:nth-child(2)"));
-                    if (phutVeBen != "" && phutXuatBen != "")
+                    driver.FindElement(By.CssSelector("#cboRouteVar_I")).Clear();
+                    driver.FindElement(By.CssSelector("#cboRouteVar_I")).SendKeys(element.FindElement(By.CssSelector("td:nth-child(4)")).Text);
+                    
+                    if (kiemTraChuyenRong(element) == true)
                     {
-                        string ms = xacNhanChuyen(Int32.Parse(getphut(phutXuatBen)), Int32.Parse(getphut(phutVeBen)), ghiChu, check, tuChoi);
+                        i++;
+                        continue;
                     }
                     else
                     {
-
-                        string[] matChuyen = { "mât chuyến", "Mat chuyen", "Mất chuyến", "mat chuyen", "mất chuyến", "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "dut day", "đứt dây" };
-                        foreach (string s in matChuyen)
+                        if (element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã xác nhận chuyến" || element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã từ chối chuyến")
+                            continue;
+                        string sTT = element.FindElement(By.CssSelector("td:nth-child(4)")).Text;
+                        string gioXuatBen = element.FindElement(By.CssSelector("td:nth-child(8)")).Text;
+                        string soXe = element.FindElement(By.CssSelector("td:nth-child(11)")).Text;
+                        string phutXuatBen = element.FindElement(By.CssSelector("td:nth-child(14)")).Text;
+                        string phutVeBen = element.FindElement(By.CssSelector("td:nth-child(15)")).Text;
+                        string ghiChu = element.FindElement(By.CssSelector("td:nth-child(19)")).GetAttribute("title");
+                        string dauBen = element.FindElement(By.CssSelector("td:nth-child(8)")).Text;
+                        IWebElement check = element.FindElement(By.CssSelector("td:nth-child(1)"));
+                        IWebElement tuChoi = element.FindElement(By.CssSelector("td:nth-child(2)"));
+                        driver.FindElement(By.CssSelector("#cboRouteVar_I")).SendKeys("");
+                        driver.FindElement(By.CssSelector("#cboRouteVar_I")).SendKeys(sTT);
+                        if (phutVeBen != "" && phutXuatBen != "")
                         {
-                            if (ghiChu.Contains(s))
-                            {
-                                tuChoi.Click();
-                                CheckPageIsLoaded(driver);
-                                try {driver.FindElement(By.CssSelector("#btnPopupConfirm_CD")).Click();}catch(Exception ex){}
-                                //#btnPopupConfirm_CD
-                                CheckPageIsLoaded(driver);
-                                break;
-                            }
+                            string ms = xacNhanChuyen(Int32.Parse(getphut(phutXuatBen)), Int32.Parse(getphut(phutVeBen)), ghiChu.ToLower(), check, tuChoi, driver);
                         }
+                        else
+                        {
 
+                            //string[] matChuyen = { "không về bến", "khong ve ben", "không vê bến", "không về bến", "không hoạt động", "khong hoat dong", " không hoat động", "không hoạt đông", "mât chuyến", "Mat chuyen", "Mất chuyến", "mat chuyen", "mất chuyến","mc","Mc", "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "dut day", "đứt dây" };
+                            foreach (string s in suCo)
+                            {
+                                if (ghiChu.Contains(s))
+                                {
+                                    tuChoi.Click();
+                                    CheckPageIsLoaded(driver);
+                                    try
+                                    {
+                                        driver.FindElement(By.CssSelector("#btnPopupConfirm_CD")).Click();
+                                    }
+                                    catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+                                    //#btnPopupConfirm_CD
+                                    CheckPageIsLoaded(driver);
+                                    break;
+                                }
+                            }
+
+                        }
+                        j++;
                     }
-                    j++;
+                    
 
                 }
                 catch (Exception ex){
@@ -139,9 +185,9 @@ namespace XacNhanChuyen
 
             return sophut;
       }
-        private string xacNhanChuyen(int phutXuatBen, int PhutVeBen, string ghiChu, IWebElement checkBox, IWebElement tuChoi)
+        private string xacNhanChuyen(int phutXuatBen, int PhutVeBen, string ghiChu, IWebElement checkBox, IWebElement tuChoi, IWebDriver driver)
         {
-            string[] suCo = { "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "tt", "trung tâm", "trung tam" };
+            //string[] suCo = {"xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "dut day", "đứt dây" };
             string ms = "";
             int flag=0;
             foreach (string s in suCo)
@@ -149,6 +195,11 @@ namespace XacNhanChuyen
                 if (ghiChu.Contains(s))
                 {
                     tuChoi.Click();
+                    try
+                    {
+                        driver.FindElement(By.CssSelector("#btnPopupConfirm_CD")).Click();
+                    }
+                    catch (Exception ex) { MessageBox.Show(ex.ToString()); }
                     flag = 1;
                     break;
                 }
