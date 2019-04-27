@@ -119,7 +119,7 @@ namespace XacNhanChuyen
                         string soXe = element.FindElement(By.CssSelector("td:nth-child(11)")).Text;
                         string phutXuatBen = element.FindElement(By.CssSelector("td:nth-child(14)")).Text;
                         string phutVeBen = element.FindElement(By.CssSelector("td:nth-child(15)")).Text;
-                        string ghiChu = element.FindElement(By.CssSelector("td:nth-child(19)")).GetAttribute("title");
+                        string ghiChu = element.FindElement(By.CssSelector("td:nth-child(19)")).GetAttribute("title").ToLower();
                         string dauBen = element.FindElement(By.CssSelector("td:nth-child(8)")).Text;
                         IWebElement check = element.FindElement(By.CssSelector("td:nth-child(1)"));
                         IWebElement tuChoi = element.FindElement(By.CssSelector("td:nth-child(2)"));
@@ -127,7 +127,7 @@ namespace XacNhanChuyen
                         driver.FindElement(By.CssSelector("#cboRouteVar_I")).SendKeys(sTT);
                         if (phutVeBen != "" && phutXuatBen != "")
                         {
-                            string ms = xacNhanChuyen(Int32.Parse(getphut(phutXuatBen)), Int32.Parse(getphut(phutVeBen)), ghiChu.ToLower(), check, tuChoi, driver);
+                            string ms = xacNhanChuyen(Int32.Parse(getphut(phutXuatBen)), Int32.Parse(getphut(phutVeBen)), ghiChu, check, tuChoi, driver);
                         }
                         else
                         {
