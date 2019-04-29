@@ -70,15 +70,23 @@ namespace XacNhanChuyen
         private bool kiemTraChuyenRong(IWebElement element)
         {
             bool rs;
-            if (element.FindElement(By.CssSelector("td:nth-child(11)")).Text == ""
+            if (element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã xác nhận chuyến"
+                || element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã từ chối chuyến"
+                || element.FindElement(By.CssSelector("td:nth-child(2) div")).GetAttribute("onclick").Contains("undo"))
+                rs = false;
+            else
+            {
+                if (element.FindElement(By.CssSelector("td:nth-child(11)")).Text == ""
                 && element.FindElement(By.CssSelector("td:nth-child(12)")).Text == ""
                 && element.FindElement(By.CssSelector("td:nth-child(13)")).Text == ""
                 && element.FindElement(By.CssSelector("td:nth-child(14)")).Text == ""
                 && element.FindElement(By.CssSelector("td:nth-child(15)")).Text == ""
-                && element.FindElement(By.CssSelector("td:nth-child(19)")).Text == "")
-                rs = true;
-            else
-                rs = false;
+                && element.FindElement(By.CssSelector("td:nth-child(19)")).GetAttribute("title") == "")
+                    rs = true;
+                else
+                    rs = false;
+            }
+            
             
             return rs;
         }
@@ -112,7 +120,9 @@ namespace XacNhanChuyen
                     }
                     else
                     {
-                        if (element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã xác nhận chuyến" || element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã từ chối chuyến")
+                        if (element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã xác nhận chuyến" 
+                            || element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã từ chối chuyến"
+                            || element.FindElement(By.CssSelector("td:nth-child(2) div")).GetAttribute("onclick").Contains("undo"))
                             continue;
                         string sTT = element.FindElement(By.CssSelector("td:nth-child(4)")).Text;
                         string gioXuatBen = element.FindElement(By.CssSelector("td:nth-child(8)")).Text;
