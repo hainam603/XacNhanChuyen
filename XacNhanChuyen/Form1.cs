@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace XacNhanChuyen
 {
@@ -26,10 +27,31 @@ namespace XacNhanChuyen
             pass.SendKeys(passWord);
             pass.Submit();
         }
-        string[] suCo = { "không về bến", "khong ve ben", "không vê bến", "không về bến", "không hoạt động", "khong hoat dong",
-            " không hoat động", "không hoạt đông", "mât chuyến", "mat chuyen", "mất chuyến", "mc",
-            "Xe hu", "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "dut day",
-            "đứt dây", "không lý do", "không có lý do", "không", "khong"};
+        string[] suCo = { "khongveben", "khonghoatdong", "matchuyen", "mc", "xehu", "thayvo", "bevo", "vaquet", "dutday", "khonglydo", "khongcolydo"};
+
+        public static string RemoveVietnameseTone(string text)
+        {
+            string result = text.ToLower();
+            result = Regex.Replace(result, "à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|/g", "a");
+            result = Regex.Replace(result, "è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ|/g", "e");
+            result = Regex.Replace(result, "ì|í|ị|ỉ|ĩ|/g", "i");
+            result = Regex.Replace(result, "ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ|/g", "o");
+            result = Regex.Replace(result, "ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ|/g", "u");
+            result = Regex.Replace(result, "ỳ|ý|ỵ|ỷ|ỹ|/g", "y");
+            result = Regex.Replace(result, "đ", "d");
+            return result;
+        }
+        private string xuLyChuoi(string chuoi)
+        {
+            string[] dau = { ",", ".", " ", "?", ":", ";", "!", "@", "#", "$", "%", "^","&","*","(",")","-","_","+","=","`","~" };
+            chuoi = chuoi.Trim();
+            foreach(string d in dau)
+            {
+                chuoi=chuoi.Replace(d,"");
+            }
+            chuoi = RemoveVietnameseTone(chuoi);
+            return chuoi;
+        }
         private string[] dsTuyenTheoNgay(DateTimePicker dtpk)
         {
             DateTime dt = dtpk.Value;
@@ -130,6 +152,7 @@ namespace XacNhanChuyen
                         string phutXuatBen = element.FindElement(By.CssSelector("td:nth-child(14)")).Text;
                         string phutVeBen = element.FindElement(By.CssSelector("td:nth-child(15)")).Text;
                         string ghiChu = element.FindElement(By.CssSelector("td:nth-child(19)")).GetAttribute("title").ToLower();
+                        ghiChu = xuLyChuoi(ghiChu);
                         string dauBen = element.FindElement(By.CssSelector("td:nth-child(8)")).Text;
                         IWebElement check = element.FindElement(By.CssSelector("td:nth-child(1)"));
                         IWebElement tuChoi = element.FindElement(By.CssSelector("td:nth-child(2)"));
