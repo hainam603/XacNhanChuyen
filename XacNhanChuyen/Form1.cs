@@ -29,7 +29,7 @@ namespace XacNhanChuyen
         string[] suCo = { "không về bến", "khong ve ben", "không vê bến", "không về bến", "không hoạt động", "khong hoat dong",
             " không hoat động", "không hoạt đông", "mât chuyến", "mat chuyen", "mất chuyến", "mc",
             "Xe hu", "xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "dut day",
-            "đứt dây" };
+            "đứt dây", "không lý do", "không có lý do", "không", "khong"};
         private string[] dsTuyenTheoNgay(DateTimePicker dtpk)
         {
             DateTime dt = dtpk.Value;
