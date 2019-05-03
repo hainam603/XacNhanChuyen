@@ -306,9 +306,32 @@ namespace XacNhanChuyen
             IWebDriver driver = new ChromeDriver(chromeOptions);
             driver.Url = "http://ebms.vn/";
             dangNhap(textBox1.Text, textBox2.Text, driver);
+            string chuoi = textBox3.Text;
+            bool f = true;
+
             foreach (string url in dsTuyenTheoNgay(dateTimePicker1))
             {
-                thucHienXacNhanChuyenTheoDS(url, driver);
+                if (chuoi != "")
+                {
+                    foreach (string c in chuoi.Split(','))
+                    {
+                        if (url.Substring(url.LastIndexOf('/') + 1, url.IndexOf('?') - url.LastIndexOf('/') - 1) == c.Trim())
+                        {
+                            f = false;
+                            break;
+                        }
+                    }
+                    if (f == false)
+                    {
+                        f = true;
+                        continue;
+                    }
+                       
+                    thucHienXacNhanChuyenTheoDS(url, driver);
+                }
+                    
+                else
+                    thucHienXacNhanChuyenTheoDS(url, driver);
 
             }
             //foreach (string url in dsTuyenTheoNgay(dateTimePicker1))
