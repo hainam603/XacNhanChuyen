@@ -27,7 +27,7 @@ namespace XacNhanChuyen
             pass.SendKeys(passWord);
             pass.Submit();
         }
-        string[] suCo = { "khongveben", "khonghoatdong", "matchuyen", "mc", "xehu", "thayvo", "bevo", "vaquet", "dutday", "khonglydo", "khongcolydo"};
+        string[] suCo = { "khongveben", "khonghoatdong", "matchuyen", "xehu", "huxe", "thayvo", "bevo", "vaquet", "dutday", "khonglydo", "khongcolydo"};
 
         public static string RemoveVietnameseTone(string text)
         {
