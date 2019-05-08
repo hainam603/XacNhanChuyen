@@ -58,6 +58,7 @@ namespace XacNhanChuyen
             string day = dt.Date.Ticks.ToString();
             string[] dstuyen = {
                                 "http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
+                                //"http://dnvt.ebms.vn/EarningYield/Trip/4?SrvDate=" +day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
@@ -98,7 +99,8 @@ namespace XacNhanChuyen
                 rs = false;
             else
             {
-                if (element.FindElement(By.CssSelector("td:nth-child(11)")).Text == ""
+                if (element.FindElement(By.CssSelector("td:nth-child(10)")).Text == ""
+                && element.FindElement(By.CssSelector("td:nth-child(11)")).Text == ""
                 && element.FindElement(By.CssSelector("td:nth-child(12)")).Text == ""
                 && element.FindElement(By.CssSelector("td:nth-child(13)")).Text == ""
                 && element.FindElement(By.CssSelector("td:nth-child(14)")).Text == ""
