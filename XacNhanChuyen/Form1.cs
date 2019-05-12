@@ -29,7 +29,7 @@ namespace XacNhanChuyen
         }
         string[] suCo = { "khongveben", "khonghoatdong", "matchuyen", "xehu", "baohu", "huxe", "thayvo", "bevo", "lungvo", "vaquet", "dutday", "duthetday", "khonglydo", "khongcolydo" };
 
-        public static string RemoveVietnameseTone(string text)
+        private static string RemoveVietnameseTone(string text)
         {
             string result = text.ToLower();
             result = Regex.Replace(result, "à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|/g", "a");
@@ -58,7 +58,7 @@ namespace XacNhanChuyen
             string day = dt.Date.Ticks.ToString();
             string[] dstuyen = {
                                 "http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
-                                //"http://dnvt.ebms.vn/EarningYield/Trip/4?SrvDate=" +day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/4?SrvDate=" +day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
@@ -116,10 +116,9 @@ namespace XacNhanChuyen
         }
         private void thucHienXacNhanChuyenTheoDS(string url, IWebDriver driver)
         {
+            try { driver.Url = url; }
+            catch { }
             
-            driver.Url = url;
-
-
             driver.FindElement(By.CssSelector("#optTrip_RB2_I_D")).Click();
             driver.FindElement(By.CssSelector("#btnFilter")).Click();
             CheckPageIsLoaded(driver);
@@ -282,9 +281,13 @@ namespace XacNhanChuyen
         }
         private void dsCacChuyenChuaXacNhan(string url, IWebDriver driver)
         {
-            driver.Url = url;
-            driver.FindElement(By.CssSelector("#optTrip_RB2_I_D")).Click();
-            driver.FindElement(By.CssSelector("#btnFilter_CD")).Click();
+            try {
+                driver.Url = url;
+                driver.FindElement(By.CssSelector("#optTrip_RB2_I_D")).Click();
+                driver.FindElement(By.CssSelector("#btnFilter_CD")).Click();
+            }
+            catch { }
+            
         }
         private void moTabMoi(IWebDriver driver)
         {
@@ -300,6 +303,25 @@ namespace XacNhanChuyen
                 Thread.Sleep(100);
             }
         }
+        private List<string> locTuyen(string chuoi, string[] dsTuyen)
+        {
+            List<string> list = new List<string>(dsTuyen);
+            foreach (string url in dsTuyen)
+            {
+                if (chuoi != "")
+                {
+                    foreach (string c in chuoi.Split(','))
+                    {
+                        if (url.Substring(url.LastIndexOf('/') + 1, url.IndexOf('?') - url.LastIndexOf('/') - 1) == c.Trim())
+                        {
+                            list.Remove(url);
+                            break;
+                        }
+                    }
+                }
+            }
+            return list;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             ChromeOptions chromeOptions = new ChromeOptions();
@@ -309,48 +331,35 @@ namespace XacNhanChuyen
             driver.Url = "http://ebms.vn/";
             dangNhap(textBox1.Text, textBox2.Text, driver);
             string chuoi = textBox3.Text;
-            bool f = true;
-
-            foreach (string url in dsTuyenTheoNgay(dateTimePicker1))
+            List<string> dsTuyen = locTuyen(chuoi, dsTuyenTheoNgay(dateTimePicker1));
+            foreach(string url in dsTuyen)
             {
-                if (chuoi != "")
-                {
-                    foreach (string c in chuoi.Split(','))
-                    {
-                        if (url.Substring(url.LastIndexOf('/') + 1, url.IndexOf('?') - url.LastIndexOf('/') - 1) == c.Trim())
-                        {
-                            f = false;
-                            break;
-                        }
-                    }
-                    if (f == false)
-                    {
-                        f = true;
-                        continue;
-                    }
-                       
-                    thucHienXacNhanChuyenTheoDS(url, driver);
-                }
-                    
-                else
-                    thucHienXacNhanChuyenTheoDS(url, driver);
-
+                thucHienXacNhanChuyenTheoDS(url, driver);
             }
-            //foreach (string url in dsTuyenTheoNgay(dateTimePicker1))
-            //{
-            //    dsCacChuyenChuaXacNhan(url, driver);
-            //    moTabMoi(driver);
-            //}
-
+           
             driver.Quit();
         }
         private void button2_Click(object sender, EventArgs e)
         {
-   
-            foreach (string url in dsTuyenTheoNgay(dateTimePicker1))
+            string chuoi = textBox3.Text;
+            List<string> dsTuyen = locTuyen(chuoi, dsTuyenTheoNgay(dateTimePicker1));
+            foreach (string url in dsTuyen)
             {
                 System.Diagnostics.Process.Start(url);
             }
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+                textBox3.Text = "2,4,64,106,119,127,130";
+            else
+                textBox3.Text = "";
         }
     }
 }
