@@ -86,7 +86,23 @@ namespace XacNhanChuyen
                                 "http://dnvt.ebms.vn/EarningYield/Trip/15?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/18?SrvDate="+day,
                                 "http://dnvt.ebms.vn/EarningYield/Trip/178?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/179?SrvDate="+day
+                                "http://dnvt.ebms.vn/EarningYield/Trip/179?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/117?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/10?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/28?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/74?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/126?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/121?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/12?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/9?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/17?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/37?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/54?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/40?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/20?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/102?SrvDate="+day,
+                                "http://dnvt.ebms.vn/EarningYield/Trip/124?SrvDate="+day,
+                                                                        
                                 };
             return dstuyen;
         }
@@ -357,7 +373,7 @@ namespace XacNhanChuyen
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
-                textBox3.Text = "2,4,64,106,119,127,130";
+                textBox3.Text = "2,4,11,64,106,119,127,130";
             else
                 textBox3.Text = "";
         }
