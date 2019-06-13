@@ -145,7 +145,7 @@ namespace XacNhanChuyen
       
             foreach (IWebElement element in all)
             {
-                if (i == 5)
+                if (i == 20)
                     break;
                 try
                 {
@@ -273,22 +273,22 @@ namespace XacNhanChuyen
                             ms = "Đủ điều kiện xác nhận";
                             checkBox.Click();
                         }
-                        else //phutVeBen >15
-                        {
-                            if (PhutVeBen >= 60)
-                                ms = "Không đủ điều kiện xác nhận";
-                            else // 15< phutVeBen <60
-                            {
-                                if (ghiChu != "")
-                                {
-                                    ms = "Đủ điều kiện xác nhận";
-                                    checkBox.Click();
-                                }
-                                else //Không ghi chú
-                                    ms = "Không đủ điều kiện xác nhận";
-                            }
+                        //else //phutVeBen >15
+                        //{
+                        //    if (PhutVeBen >= 60)
+                        //        ms = "Không đủ điều kiện xác nhận";
+                        //    else // 15< phutVeBen <60
+                        //    {
+                        //        //if (ghiChu != "")
+                        //        //{
+                        //        //    ms = "Đủ điều kiện xác nhận";
+                        //        //    checkBox.Click();
+                        //        //}
+                        //        //else //Không ghi chú
+                        //        //    ms = "Không đủ điều kiện xác nhận";
+                        //    }
 
-                        }
+                        //}
                     }
                 }
             }
@@ -373,7 +373,7 @@ namespace XacNhanChuyen
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
-                textBox3.Text = "2,4,11,64,106,119,127,130";
+                textBox3.Text = "2,4,9,10,64,77,78,106,113,116,117,119,121,124,127,130,11,12,48,55,74,102";
             else
                 textBox3.Text = "";
         }
