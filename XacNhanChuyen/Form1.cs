@@ -52,58 +52,17 @@ namespace XacNhanChuyen
             chuoi = RemoveVietnameseTone(chuoi);
             return chuoi;
         }
-        private string[] dsTuyenTheoNgay(DateTimePicker dtpk)
+        private string[] dsTuyenTheoNgay(DateTimePicker dtpk, string dst)
         {
             DateTime dt = dtpk.Value;
+            string[] dstuyen=new string[dst.Split(',').Count()];
             string day = dt.Date.Ticks.ToString();
-            string[] dstuyen = {
-                                "http://dnvt.ebms.vn/EarningYield/Trip/2?SrvDate=" +day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/4?SrvDate=" +day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/24?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/26?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/34?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/43?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/48?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/52?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/55?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/59?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/64?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/70?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/73?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/76?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/77?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/78?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/79?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/106?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/112?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/113?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/116?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/119?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/127?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/129?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/130?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/11?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/15?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/18?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/178?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/179?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/117?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/10?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/28?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/74?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/126?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/121?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/12?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/9?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/17?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/37?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/54?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/40?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/20?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/102?SrvDate="+day,
-                                "http://dnvt.ebms.vn/EarningYield/Trip/124?SrvDate="+day,
-                                                                        
-                                };
+            int i=0;
+            foreach (string idTuyen in dst.Split(','))
+            {
+                dstuyen[i]="http://dnvt.ebms.vn/EarningYield/Trip/"+idTuyen+"?SrvDate=" +day;
+                i++;
+            }
             return dstuyen;
         }
         private bool kiemTraChuyenRong(IWebElement element)
@@ -225,6 +184,10 @@ namespace XacNhanChuyen
         {
             textBox1.Text = "xnchuyen3";
             textBox2.Text = "H@inam123456";
+            textBox4.Text = Properties.Settings.Default.DsTuyen;
+            textBox3.Text = Properties.Settings.Default.DSTuyenBoQua;
+            label6.Text = textBox4.Text.Split(',').Count().ToString();
+            label7.Text = textBox3.Text.Split(',').Count().ToString();
         }
         private string getphut(string sophut)
         {
@@ -347,7 +310,7 @@ namespace XacNhanChuyen
             driver.Url = "http://ebms.vn/";
             dangNhap(textBox1.Text, textBox2.Text, driver);
             string chuoi = textBox3.Text;
-            List<string> dsTuyen = locTuyen(chuoi, dsTuyenTheoNgay(dateTimePicker1));
+            List<string> dsTuyen = locTuyen(chuoi, dsTuyenTheoNgay(dateTimePicker1,textBox4.Text));
             foreach(string url in dsTuyen)
             {
                 thucHienXacNhanChuyenTheoDS(url, driver);
@@ -358,7 +321,7 @@ namespace XacNhanChuyen
         private void button2_Click(object sender, EventArgs e)
         {
             string chuoi = textBox3.Text;
-            List<string> dsTuyen = locTuyen(chuoi, dsTuyenTheoNgay(dateTimePicker1));
+            List<string> dsTuyen = locTuyen(chuoi, dsTuyenTheoNgay(dateTimePicker1,textBox4.Text));
             foreach (string url in dsTuyen)
             {
                 System.Diagnostics.Process.Start(url);
@@ -367,15 +330,29 @@ namespace XacNhanChuyen
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-
+            label6.Text = textBox4.Text.Split(',').Count().ToString();
+            label7.Text = textBox3.Text.Split(',').Count().ToString();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
-                textBox3.Text = "2,4,9,10,64,77,78,106,113,116,117,119,121,124,127,130,11,12,48,55,74,102";
-            else
-                textBox3.Text = "";
+            {
+                Properties.Settings.Default.DsTuyen = textBox4.Text;
+                Properties.Settings.Default.DSTuyenBoQua = textBox3.Text;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            label6.Text = textBox4.Text.Split(',').Count().ToString();
+            label7.Text = textBox3.Text.Split(',').Count().ToString();
         }
     }
 }
