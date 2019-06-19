@@ -354,5 +354,13 @@ namespace XacNhanChuyen
             label6.Text = textBox4.Text.Split(',').Count().ToString();
             label7.Text = textBox3.Text.Split(',').Count().ToString();
         }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true)
+                textBox3.Text = "";
+            else
+                textBox3.Text = Properties.Settings.Default.DSTuyenBoQua;
+        }
     }
 }
