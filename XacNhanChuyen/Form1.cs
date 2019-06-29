@@ -182,8 +182,8 @@ namespace XacNhanChuyen
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            textBox1.Text = "xnchuyen3";
-            textBox2.Text = "H@inam123456";
+            textBox1.Text = Properties.Settings.Default.UserName;
+            textBox2.Text = Properties.Settings.Default.PassWord;
             textBox4.Text = Properties.Settings.Default.DsTuyen;
             textBox3.Text = Properties.Settings.Default.DSTuyenBoQua;
             label6.Text = textBox4.Text.Split(',').Count().ToString();
@@ -340,6 +340,8 @@ namespace XacNhanChuyen
             {
                 Properties.Settings.Default.DsTuyen = textBox4.Text;
                 Properties.Settings.Default.DSTuyenBoQua = textBox3.Text;
+                Properties.Settings.Default.UserName = textBox1.Text;
+                Properties.Settings.Default.PassWord = textBox2.Text;
                 Properties.Settings.Default.Save();
             }
         }
