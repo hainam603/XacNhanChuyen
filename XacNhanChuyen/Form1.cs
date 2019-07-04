@@ -8,8 +8,10 @@ using System.Text;
 using System.Windows.Forms;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support;
 using System.Threading;
 using System.Text.RegularExpressions;
+using OpenQA.Selenium.Support.UI;
 
 namespace XacNhanChuyen
 {
@@ -180,6 +182,77 @@ namespace XacNhanChuyen
             
             
         }
+        private void thucHienXacNhanCoTheoDS(string url, IWebDriver driver)
+        {
+            try { driver.Url = url; }
+            catch { }
+
+            driver.FindElement(By.CssSelector("#optTrip_RB3_I_D")).Click();
+            driver.FindElement(By.CssSelector("#btnFilter")).Click();
+            CheckPageIsLoaded(driver);
+
+            int j = 0;
+            int i = 0;
+            IList<IWebElement> all = driver.FindElements(By.CssSelector("#tableContainer > tbody tr"));
+
+            foreach (IWebElement element in all)
+            {
+                if (i == 20)
+                {
+                    break;
+                }
+                    
+                try
+                {
+                    if (kiemTraChuyenRong(element) == true)
+                    {
+                        i++;
+                        continue;
+                    }
+                    else
+                    {
+                        if(element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title").ToString().Contains("Đã xác nhận chuyến"))
+                        {
+                            if (element.FindElement(By.CssSelector("td:nth-child(17)")).Text == "Có")
+                                continue;
+
+                            IWebElement xemChiTiet = element.FindElement(By.CssSelector("td:nth-child(21) > div.cmdTripDetail"));
+                            xemChiTiet.Click();
+                            //CheckPageIsLoaded(driver);
+
+                            IWebElement elKetXe = kiemtraElement(driver, "#ui-accordion-dailyTripAccordion-header-5");
+                            elKetXe.Click();
+                            IWebElement elCo = kiemtraElement(driver, "#optConfirmTrafficJam_RB1_I_D");
+                            elCo.Click();
+                            driver.FindElement(By.CssSelector("#btnConfirmTrafficJam_CD")).Click();
+                            driver.FindElement(By.CssSelector("#btnClose_CD")).Click();
+                            j++;
+                        }
+                       
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.ToString());
+                }
+            }
+        }
+        private IWebElement kiemtraElement(IWebDriver driver, string cssSelector)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            IWebElement elCo = wait.Until<IWebElement>((d) =>
+            {
+                IWebElement eCo = d.FindElement(By.CssSelector(cssSelector));
+                if (eCo.Displayed && eCo.Enabled)
+                {
+                    return eCo;
+                }
+
+                return null;
+            });
+
+            return elCo;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             textBox1.Text = Properties.Settings.Default.UserName;
@@ -340,8 +413,6 @@ namespace XacNhanChuyen
             {
                 Properties.Settings.Default.DsTuyen = textBox4.Text;
                 Properties.Settings.Default.DSTuyenBoQua = textBox3.Text;
-                Properties.Settings.Default.UserName = textBox1.Text;
-                Properties.Settings.Default.PassWord = textBox2.Text;
                 Properties.Settings.Default.Save();
             }
         }
@@ -363,6 +434,31 @@ namespace XacNhanChuyen
                 textBox3.Text = "";
             else
                 textBox3.Text = Properties.Settings.Default.DSTuyenBoQua;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            //chromeOptions.AddArguments("--start-minimized");
+            chromeOptions.AddArguments("--start-maximized");
+            IWebDriver driver = new ChromeDriver(chromeOptions);
+            driver.Url = "http://ebms.vn/";
+            dangNhap(textBox1.Text, textBox2.Text, driver);
+            string chuoi = textBox3.Text;
+            List<string> dsTuyen = locTuyen(chuoi, dsTuyenTheoNgay(dateTimePicker1, textBox4.Text));
+            foreach (string url in dsTuyen)
+            {
+                thucHienXacNhanCoTheoDS(url, driver);
+            }
+
+            driver.Quit();
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.UserName = textBox1.Text;
+            Properties.Settings.Default.PassWord = textBox2.Text;
+            Properties.Settings.Default.Save();
         }
     }
 }
