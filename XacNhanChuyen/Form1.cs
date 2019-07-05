@@ -29,7 +29,7 @@ namespace XacNhanChuyen
             pass.SendKeys(passWord);
             pass.Submit();
         }
-        string[] suCo = { "khongveben", "khonghoatdong", "matchuyen", "xehu", "baohu", "huxe", "thayvo", "bevo", "lungvo", "vaquet", "dutday", "duthetday", "khonglydo", "khongcolydo" };
+        string[] suCo = { "tainan", "khongveben", "khonghoatdong", "matchuyen", "xehu", "baohu", "huxe", "thayvo", "bevo", "lungvo", "vaquet", "vacham", "dutday", "duthetday", "khonglydo", "khongcolydo" };
 
         private static string RemoveVietnameseTone(string text)
         {
@@ -179,8 +179,8 @@ namespace XacNhanChuyen
                 driver.FindElement(By.CssSelector("#btnPopupConfirm_CD")).Click();
             }
             catch (Exception ex) { }
-            
-            
+       
+            //driver.Close();
         }
         private void thucHienXacNhanCoTheoDS(string url, IWebDriver driver)
         {
@@ -236,6 +236,41 @@ namespace XacNhanChuyen
                     //MessageBox.Show(ex.ToString());
                 }
             }
+            //driver.Close();
+        }
+
+        private void thucHienGoChuyen(string url, IWebDriver driver, int from, int to, string dauBen)
+        {
+            try { driver.Url = url; }
+            catch { }
+            driver.FindElement(By.CssSelector("#cboRouteVar_B-1")).Click();
+            driver.FindElement(By.CssSelector("#cboRouteVar_DDD_L_LBI"+dauBen+"T0")).Click();
+            driver.FindElement(By.CssSelector("#btnFilter")).Click();
+            CheckPageIsLoaded(driver);
+
+            IList<IWebElement> all = driver.FindElements(By.CssSelector("#tableContainer > tbody tr"));
+
+            foreach (IWebElement element in all)
+            {
+              
+                try
+                {
+                    int sTT =Int32.Parse(element.FindElement(By.CssSelector("td:nth-child(4)")).Text);
+                    if(sTT>=from&&sTT<=to)
+                    if (element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title").ToString().Contains("Đã xác nhận chuyến"))
+                    {
+                            element.FindElement(By.CssSelector("td:nth-child(2) div")).Click();
+                            driver.FindElement(By.CssSelector("#btnPopupConfirm_CD")).Click();
+                    }
+
+                    
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.ToString());
+                }
+            }
+
         }
         private IWebElement kiemtraElement(IWebDriver driver, string cssSelector)
         {
@@ -255,6 +290,7 @@ namespace XacNhanChuyen
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            cbbDauTuyen.SelectedIndex = 0;
             textBox1.Text = Properties.Settings.Default.UserName;
             textBox2.Text = Properties.Settings.Default.PassWord;
             textBox4.Text = Properties.Settings.Default.DsTuyen;
@@ -459,6 +495,34 @@ namespace XacNhanChuyen
             Properties.Settings.Default.UserName = textBox1.Text;
             Properties.Settings.Default.PassWord = textBox2.Text;
             Properties.Settings.Default.Save();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGoChuyen_Click(object sender, EventArgs e)
+        {
+            if (txtMaTuyen.Text == "" || txtFrom.Text == "" || txtTo.Text == "")
+                return;
+            else
+            {
+                ChromeOptions chromeOptions = new ChromeOptions();
+                //chromeOptions.AddArguments("--start-minimized");
+                chromeOptions.AddArguments("--start-maximized");
+                IWebDriver driver = new ChromeDriver(chromeOptions);
+                driver.Url = "http://ebms.vn/";
+                dangNhap(textBox1.Text, textBox2.Text, driver);
+                string url = "http://dnvt.ebms.vn/EarningYield/Trip/" + txtMaTuyen.Text + "?SrvDate=" + dateTimePicker1.Value.Date.Ticks.ToString();
+                int from = Int32.Parse(txtFrom.Text);
+                int to = Int32.Parse(txtTo.Text);
+                string dauBen = cbbDauTuyen.SelectedIndex.ToString().Trim();
+                thucHienGoChuyen(url, driver, from, to, dauBen);
+
+                driver.Quit();
+            }
+
         }
     }
 }
