@@ -21,7 +21,7 @@ namespace XacNhanChuyen
         {
             InitializeComponent();
         }
-        private void dangNhap(string userName, string passWord, IWebDriver driver)
+        public void dangNhap(string userName, string passWord, IWebDriver driver)
         {
             IWebElement user = driver.FindElement(By.Id("username"));
             IWebElement pass = driver.FindElement(By.Id("password"));
@@ -29,9 +29,9 @@ namespace XacNhanChuyen
             pass.SendKeys(passWord);
             pass.Submit();
         }
-        string[] suCo = { "tainan", "khongveben", "khonghoatdong", "matchuyen", "xehu", "baohu", "huxe", "thayvo", "bevo", "lungvo", "vaquet", "vacham", "dutday", "duthetday", "khonglydo", "khongcolydo" };
+        public string[] suCo = { "tainan", "khongveben", "khonghoatdong", "matchuyen", "xehu", "baohu", "huxe", "thayvo", "bevo", "lungvo", "vaquet", "vacham", "dutday", "duthetday", "khonglydo", "khongcolydo" };
 
-        private static string RemoveVietnameseTone(string text)
+        public static string RemoveVietnameseTone(string text)
         {
             string result = text.ToLower();
             result = Regex.Replace(result, "à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|/g", "a");
@@ -43,7 +43,7 @@ namespace XacNhanChuyen
             result = Regex.Replace(result, "đ", "d");
             return result;
         }
-        private string xuLyChuoi(string chuoi)
+        public string xuLyChuoi(string chuoi)
         {
             string[] dau = { ",", ".", " ", "?", ":", ";", "!", "@", "#", "$", "%", "^","&","*","(",")","-","_","+","=","`","~" };
             chuoi = chuoi.Trim();
@@ -54,7 +54,7 @@ namespace XacNhanChuyen
             chuoi = RemoveVietnameseTone(chuoi);
             return chuoi;
         }
-        private string[] dsTuyenTheoNgay(DateTimePicker dtpk, string dst)
+        public string[] dsTuyenTheoNgay(DateTimePicker dtpk, string dst)
         {
             DateTime dt = dtpk.Value;
             string[] dstuyen=new string[dst.Split(',').Count()];
@@ -67,7 +67,7 @@ namespace XacNhanChuyen
             }
             return dstuyen;
         }
-        private bool kiemTraChuyenRong(IWebElement element)
+        public bool kiemTraChuyenRong(IWebElement element)
         {
             bool rs;
             if (element.FindElement(By.CssSelector("td:nth-child(5) div")).GetAttribute("title") == "Đã xác nhận chuyến"
@@ -91,7 +91,7 @@ namespace XacNhanChuyen
             
             return rs;
         }
-        private void thucHienXacNhanChuyenTheoDS(string url, IWebDriver driver)
+        public void thucHienXacNhanChuyenTheoDS(string url, IWebDriver driver)
         {
             try { driver.Url = url; }
             catch { }
@@ -182,7 +182,7 @@ namespace XacNhanChuyen
        
             //driver.Close();
         }
-        private void thucHienXacNhanCoTheoDS(string url, IWebDriver driver)
+        public void thucHienXacNhanCoTheoDS(string url, IWebDriver driver)
         {
             try { driver.Url = url; }
             catch { }
@@ -239,7 +239,7 @@ namespace XacNhanChuyen
             //driver.Close();
         }
 
-        private void thucHienGoChuyen(string url, IWebDriver driver, int from, int to, string dauBen)
+        public void thucHienGoChuyen(string url, IWebDriver driver, int from, int to, string dauBen)
         {
             try { driver.Url = url; }
             catch { }
@@ -272,7 +272,7 @@ namespace XacNhanChuyen
             }
 
         }
-        private IWebElement kiemtraElement(IWebDriver driver, string cssSelector)
+        public IWebElement kiemtraElement(IWebDriver driver, string cssSelector)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             IWebElement elCo = wait.Until<IWebElement>((d) =>
@@ -288,7 +288,7 @@ namespace XacNhanChuyen
 
             return elCo;
         }
-        private void Form1_Load(object sender, EventArgs e)
+        public void Form1_Load(object sender, EventArgs e)
         {
             cbbDauTuyen.SelectedIndex = 0;
             textBox1.Text = Properties.Settings.Default.UserName;
@@ -298,7 +298,7 @@ namespace XacNhanChuyen
             label6.Text = textBox4.Text.Split(',').Count().ToString();
             label7.Text = textBox3.Text.Split(',').Count().ToString();
         }
-        private string getphut(string sophut)
+        public string getphut(string sophut)
         {
             if (sophut.Contains("("))
                 sophut = "-" + sophut.Substring(1, 2);
@@ -307,7 +307,7 @@ namespace XacNhanChuyen
 
             return sophut;
       }
-        private string xacNhanChuyen(int phutXuatBen, int PhutVeBen, string ghiChu, IWebElement checkBox, IWebElement tuChoi, IWebDriver driver)
+        public string xacNhanChuyen(int phutXuatBen, int PhutVeBen, string ghiChu, IWebElement checkBox, IWebElement tuChoi, IWebDriver driver)
         {
             //string[] suCo = {"xe hu", "xe hư", "thay vo", "thay vỏ", "be vo", "bể vỏ", "va quẹt", "va quet", "tai nan", "tai nạn", "dut day", "đứt dây" };
             string ms = "";
@@ -367,7 +367,7 @@ namespace XacNhanChuyen
             return ms;
             
         }
-        private void dsCacChuyenChuaXacNhan(string url, IWebDriver driver)
+        public void dsCacChuyenChuaXacNhan(string url, IWebDriver driver)
         {
             try {
                 driver.Url = url;
@@ -377,11 +377,11 @@ namespace XacNhanChuyen
             catch { }
             
         }
-        private void moTabMoi(IWebDriver driver)
+        public void moTabMoi(IWebDriver driver)
         {
             driver.FindElement(By.CssSelector("body")).SendKeys(OpenQA.Selenium.Keys.Control + 'w');
         }
-        private void CheckPageIsLoaded(IWebDriver driver)
+        public void CheckPageIsLoaded(IWebDriver driver)
         {
             while (true)
             {
@@ -391,7 +391,7 @@ namespace XacNhanChuyen
                 Thread.Sleep(100);
             }
         }
-        private List<string> locTuyen(string chuoi, string[] dsTuyen)
+        public List<string> locTuyen(string chuoi, string[] dsTuyen)
         {
             List<string> list = new List<string>(dsTuyen);
             foreach (string url in dsTuyen)
@@ -410,7 +410,7 @@ namespace XacNhanChuyen
             }
             return list;
         }
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             ChromeOptions chromeOptions = new ChromeOptions();
             //chromeOptions.AddArguments("--start-minimized");
@@ -427,7 +427,7 @@ namespace XacNhanChuyen
            
             driver.Quit();
         }
-        private void button2_Click(object sender, EventArgs e)
+        public void button2_Click(object sender, EventArgs e)
         {
             string chuoi = textBox3.Text;
             List<string> dsTuyen = locTuyen(chuoi, dsTuyenTheoNgay(dateTimePicker1,textBox4.Text));
@@ -437,13 +437,13 @@ namespace XacNhanChuyen
             }
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
+        public void textBox3_TextChanged(object sender, EventArgs e)
         {
             label6.Text = textBox4.Text.Split(',').Count().ToString();
             label7.Text = textBox3.Text.Split(',').Count().ToString();
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        public void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
             {
@@ -453,18 +453,18 @@ namespace XacNhanChuyen
             }
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        public void label4_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void textBox4_TextChanged(object sender, EventArgs e)
+        public void textBox4_TextChanged(object sender, EventArgs e)
         {
             label6.Text = textBox4.Text.Split(',').Count().ToString();
             label7.Text = textBox3.Text.Split(',').Count().ToString();
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        public void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked == true)
                 textBox3.Text = "";
@@ -472,7 +472,7 @@ namespace XacNhanChuyen
                 textBox3.Text = Properties.Settings.Default.DSTuyenBoQua;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        public void button3_Click(object sender, EventArgs e)
         {
             ChromeOptions chromeOptions = new ChromeOptions();
             //chromeOptions.AddArguments("--start-minimized");
@@ -490,19 +490,19 @@ namespace XacNhanChuyen
             driver.Quit();
         }
 
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        public void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.UserName = textBox1.Text;
             Properties.Settings.Default.PassWord = textBox2.Text;
             Properties.Settings.Default.Save();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        public void button4_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void btnGoChuyen_Click(object sender, EventArgs e)
+        public void btnGoChuyen_Click(object sender, EventArgs e)
         {
             if (txtMaTuyen.Text == "" || txtFrom.Text == "" || txtTo.Text == "")
                 return;

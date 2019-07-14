@@ -15,7 +15,8 @@ namespace XacNhanChuyen
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new GetDataFromEBMS());
+            //Application.Run(new Form1());
         }
     }
 }
